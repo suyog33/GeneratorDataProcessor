@@ -21,18 +21,23 @@
   <MaxEmissionGenerators>
     <Day>
       <Name>Coal[1]</Name>
-      <Date>2017-01-01T05:30:00+05:30</Date>
+      <Date>2017-01-01T00:00:00.0000000+00:00</Date>
       <Emission>168.934734</Emission>
     </Day>
     <Day>
-      <Name>Coal[1]</Name>
-      <Date>2017-01-02T05:30:00+05:30</Date>
-      <Emission>168.03050199999998</Emission>
+      <Name>Gas[1]</Name>
+      <Date>2017-01-02T00:00:00.0000000+00:00</Date>
+      <Emission>8.96705</Emission>
     </Day>
     <Day>
       <Name>Gas[1]</Name>
-      <Date>2017-01-03T05:30:00+05:30</Date>
+      <Date>2017-01-03T00:00:00.0000000+00:00</Date>
       <Emission>9.132349999999999</Emission>
+    </Day>
+    <Day>
+      <Name>Coal[1]</Name>
+      <Date>2017-01-02T00:00:00.0000000+05:30</Date>
+      <Emission>168.03050199999998</Emission>
     </Day>
   </MaxEmissionGenerators>
   <ActualHeatRates>

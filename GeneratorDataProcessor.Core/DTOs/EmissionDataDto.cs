@@ -3,7 +3,7 @@
     public class EmissionDataDto
         {
             public string GeneratorName { get; set; }
-            public string Date { get; set; }
+            public DateTimeOffset Date { get; set; }
             public double EmissionValue { get; set; }
         }
     

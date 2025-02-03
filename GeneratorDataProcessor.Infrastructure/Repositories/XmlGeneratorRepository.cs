@@ -59,7 +59,8 @@ namespace GeneratorDataProcessor.Infrastructure.Repositories
         {
             return generatorElement.Descendants("Day").Select(d => new DayGeneration
             {
-                Date = DateTime.Parse(d.Element("Date")?.Value ?? "0001-01-01"),
+                Date = DateTimeOffset.TryParse(d.Element("Date")?.Value, out var parseDate)
+                        ? parseDate : new DateTimeOffset(0001, 01, 01, 00, 00, 00, TimeSpan.Zero),
                 Energy = double.Parse(d.Element("Energy")?.Value ?? "0"),
                 Price = double.Parse(d.Element("Price")?.Value ?? "0")
             }).ToList();
@@ -78,7 +79,7 @@ namespace GeneratorDataProcessor.Infrastructure.Repositories
                 new XElement("MaxEmissionGenerators",
                     maxEmissions.Select(dto => new XElement("Day",
                         new XElement("Name", dto.GeneratorName),
-                        new XElement("Date", dto.Date),
+                        new XElement("Date", dto.Date.ToString("o")),
                         new XElement("Emission", dto.EmissionValue)))),
                 new XElement("ActualHeatRates",
                     heatRates.Select(dto => new XElement("ActualHeatRate",

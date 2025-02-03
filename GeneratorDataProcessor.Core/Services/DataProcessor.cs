@@ -28,7 +28,7 @@ namespace GeneratorDataProcessor.Core.Services
             generatorRepository.SaveResults(fileName, totalGeneration, maxEmissions, heatRates);
         }
 
-        private IEnumerable<GeneratorOutputDto> CalculateTotalGeneration(IEnumerable<Generator> generators)
+        internal IEnumerable<GeneratorOutputDto> CalculateTotalGeneration(IEnumerable<Generator> generators)
         {
             return generators.Select(g => new GeneratorOutputDto
             {
@@ -37,13 +37,15 @@ namespace GeneratorDataProcessor.Core.Services
             });
         }
 
-        private IEnumerable<EmissionDataDto> CalculateMaxEmissions(IEnumerable<Generator> generators)
+        internal IEnumerable<EmissionDataDto> CalculateMaxEmissions(IEnumerable<Generator> generators)
         {
-            var emissionsData = generators.SelectMany(g => g.Days, (g, d) => new {
+            var emissionsData = generators.SelectMany(g => g.Days, (g, d) => new
+            {
                 Generator = g,
                 Day = d,
                 Emission = (g is GasGenerator gas ? gas.EmissionsRating : (g is CoalGenerator coal ? coal.EmissionsRating : 0)) * d.Energy
-            });
+            })
+            .Where(e => e.Emission > 0);
 
             var groupedByDate = emissionsData.GroupBy(gd => gd.Day.Date);
 
@@ -52,12 +54,12 @@ namespace GeneratorDataProcessor.Core.Services
             return maxEmissionPerDay.Select(maxEmissionGen => new EmissionDataDto
             {
                 GeneratorName = maxEmissionGen.Generator.Name,
-                Date = maxEmissionGen.Day.Date.ToString("yyyy-MM-dd"),
+                Date = maxEmissionGen.Day.Date,
                 EmissionValue = maxEmissionGen.Emission
             });
         }
 
-        private IEnumerable<HeatRateDto> CalculateHeatRates(IEnumerable<Generator> generators)
+        internal IEnumerable<HeatRateDto> CalculateHeatRates(IEnumerable<Generator> generators)
         {
             return generators.OfType<CoalGenerator>()
                 .Select(g => new HeatRateDto
