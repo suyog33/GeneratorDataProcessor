@@ -10,7 +10,6 @@ namespace GeneratorDataProcessor.Tests
     {
         private readonly Mock<IGeneratorRepository> mockRepository;
         private readonly DataProcessor dataProcessor;
-        private DateTimeOffset date = DateTimeOffset.UtcNow;
         public DataProcessorHeatRatesTest()
         {
             mockRepository = new Mock<IGeneratorRepository>();

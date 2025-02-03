@@ -21,13 +21,13 @@ namespace GeneratorDataProcessor.Core.Services
                 NotifyFilter = NotifyFilters.FileName
             };
 
-            fileWatcher.Created += OnNewFileDetected;
+            fileWatcher.Created += FileWatcher_Created;
             fileWatcher.EnableRaisingEvents = true;
 
             Console.WriteLine($"Monitoring started on {inputFolder}...");
         }
 
-        private void OnNewFileDetected(object sender, FileSystemEventArgs e)
+        private void FileWatcher_Created(object sender, FileSystemEventArgs e)
         {
             try
             {
@@ -40,7 +40,7 @@ namespace GeneratorDataProcessor.Core.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error processing file {e.Name}: {ex.Message}");
+                Console.WriteLine($"Error processing file {e.FullPath}: {ex.Message}");
             }
         }
     }

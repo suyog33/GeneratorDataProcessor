@@ -39,24 +39,22 @@ namespace GeneratorDataProcessor.Core.Services
 
         internal IEnumerable<EmissionDataDto> CalculateMaxEmissions(IEnumerable<Generator> generators)
         {
-            var emissionsData = generators.SelectMany(g => g.Days, (g, d) => new
-            {
-                Generator = g,
-                Day = d,
-                Emission = (g is GasGenerator gas ? gas.EmissionsRating : (g is CoalGenerator coal ? coal.EmissionsRating : 0)) * d.Energy
-            })
-            .Where(e => e.Emission > 0);
-
-            var groupedByDate = emissionsData.GroupBy(gd => gd.Day.Date);
-
-            var maxEmissionPerDay = groupedByDate.Select(gdGroup => gdGroup.OrderByDescending(gd => gd.Emission).First());
-
-            return maxEmissionPerDay.Select(maxEmissionGen => new EmissionDataDto
-            {
-                GeneratorName = maxEmissionGen.Generator.Name,
-                Date = maxEmissionGen.Day.Date,
-                EmissionValue = maxEmissionGen.Emission
-            });
+            return generators
+                .SelectMany(g => g.Days, (g, d) => new
+                {
+                    Generator = g,
+                    Date = d.Date,
+                    Emission = (g is GasGenerator gas ? gas.EmissionsRating : (g is CoalGenerator coal ? coal.EmissionsRating : 0)) * d.Energy
+                })
+                .GroupBy(gd => gd.Date)
+                .Select(gdGroup => gdGroup.MaxBy(gd => gd.Emission)) 
+                .Where(e => e.Emission > 0) 
+                .Select(maxEmissionGen => new EmissionDataDto
+                {
+                    GeneratorName = maxEmissionGen.Generator.Name,
+                    Date = maxEmissionGen.Date,
+                    EmissionValue = maxEmissionGen.Emission
+                });
         }
 
         internal IEnumerable<HeatRateDto> CalculateHeatRates(IEnumerable<Generator> generators)
