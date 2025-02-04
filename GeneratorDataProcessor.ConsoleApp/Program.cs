@@ -22,29 +22,21 @@ namespace GeneratorDataProcessor.ConsoleApp
 
         private static ServiceProvider ConfigureServices()
         {
-            try
-            {
-                var services = new ServiceCollection();
-                var configuration = new ConfigurationBuilder()
-                    .SetBasePath(Directory.GetCurrentDirectory())
-                    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                    .Build();
+            var services = new ServiceCollection();
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .Build();
 
-                services.AddSingleton<IConfiguration>(configuration);
-                services.AddScoped<IGeneratorRepository, XmlGeneratorRepository>();
-                services.AddSingleton<IDataProcessor, DataProcessor>();
-                services.AddSingleton<IFileMonitorService>(
-                    provider => new FileMonitorService(
-                        provider.GetRequiredService<IDataProcessor>(),
-                        configuration["InputFolder"]));
+            services.AddSingleton<IConfiguration>(configuration);
+            services.AddScoped<IGeneratorRepository, XmlGeneratorRepository>();
+            services.AddSingleton<IDataProcessor, DataProcessor>();
+            services.AddSingleton<IFileMonitorService>(
+                provider => new FileMonitorService(
+                    provider.GetRequiredService<IDataProcessor>(),
+                    configuration["InputFolder"]));
 
-                return services.BuildServiceProvider();
-            }
-            catch (Exception ex)
-            {
-
-                Console.WriteLine($"Error : {ex.Message}");
-            }
+            return services.BuildServiceProvider();
         }
     }
 }
