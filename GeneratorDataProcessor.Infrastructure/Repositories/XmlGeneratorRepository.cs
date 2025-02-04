@@ -10,10 +10,12 @@ namespace GeneratorDataProcessor.Infrastructure.Repositories
     public class XmlGeneratorRepository : IGeneratorRepository
     {
         private readonly string outputFolder;
+        private readonly string referencePath;
 
         public XmlGeneratorRepository(IConfiguration configuration)
         {
             outputFolder = configuration["OutputFolder"];
+            referencePath = configuration["ReferencePath"];
         }
 
         public IEnumerable<Generator> GetAllGenerators(string filePath)

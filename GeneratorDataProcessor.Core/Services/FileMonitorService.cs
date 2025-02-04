@@ -43,7 +43,8 @@ namespace GeneratorDataProcessor.Core.Services
                 System.Threading.Thread.Sleep(1000);
 
                 Console.WriteLine($"New file detected: {e.FullPath}");
-                dataProcessor.ProcessFile(e.FullPath, e.Name);
+                string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(e.Name);
+                dataProcessor.ProcessFile(e.FullPath, fileNameWithoutExtension);
             }
             catch (Exception ex)
             {

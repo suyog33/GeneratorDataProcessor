@@ -3,41 +3,41 @@
   <Totals>
     <Generator>
       <Name>Wind[Offshore]</Name>
-      <Total>6274.028097</Total>
+      <Total>1662.6174457050001</Total>
     </Generator>
     <Generator>
       <Name>Wind[Onshore]</Name>
-      <Total>5147.414289</Total>
+      <Total>4869.453917393999</Total>
     </Generator>
     <Generator>
       <Name>Gas[1]</Name>
-      <Total>12230.25087</Total>
+      <Total>8512.25460552</Total>
     </Generator>
     <Generator>
       <Name>Coal[1]</Name>
-      <Total>7674.880067</Total>
+      <Total>5341.716526632001</Total>
     </Generator>
   </Totals>
   <MaxEmissionGenerators>
     <Day>
       <Name>Coal[1]</Name>
       <Date>2017-01-01T00:00:00.0000000+00:00</Date>
-      <Emission>168.934734</Emission>
+      <Emission>137.175004008</Emission>
     </Day>
     <Day>
       <Name>Gas[1]</Name>
       <Date>2017-01-02T00:00:00.0000000+00:00</Date>
-      <Emission>8.96705</Emission>
+      <Emission>5.0394821</Emission>
     </Day>
     <Day>
       <Name>Gas[1]</Name>
       <Date>2017-01-03T00:00:00.0000000+00:00</Date>
-      <Emission>9.132349999999999</Emission>
+      <Emission>5.1323807</Emission>
     </Day>
     <Day>
       <Name>Coal[1]</Name>
       <Date>2017-01-02T00:00:00.0000000+05:30</Date>
-      <Emission>168.03050199999998</Emission>
+      <Emission>136.440767624</Emission>
     </Day>
   </MaxEmissionGenerators>
   <ActualHeatRates>

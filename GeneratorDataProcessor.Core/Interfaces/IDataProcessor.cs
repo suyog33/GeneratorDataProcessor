@@ -2,6 +2,6 @@
 {
     public interface IDataProcessor
     {
-        void ProcessFile(string filePath, string fileName);
+        void ProcessFile(string inputFilePath, string inputFileName);
     }
 }
