@@ -36,6 +36,11 @@ namespace GeneratorDataProcessor.ConsoleApp
                     provider.GetRequiredService<IDataProcessor>(),
                     configuration["InputFolder"]));
 
+            //services.AddSingleton<IReferenceDataRepository, ReferenceDataRepository>();
+            var factorsRepository = new FactorsRepository(configuration);
+            var factors = factorsRepository.LoadReferenceData();
+            services.AddSingleton(factors);
+
             return services.BuildServiceProvider();
         }
     }
