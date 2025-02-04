@@ -16,15 +16,22 @@ namespace GeneratorDataProcessor.Core.Services
 
         public void StartMonitoring()
         {
-            fileWatcher = new FileSystemWatcher(inputFolder, "*.xml")
+            try
             {
-                NotifyFilter = NotifyFilters.FileName
-            };
+                fileWatcher = new FileSystemWatcher(inputFolder, "*.xml")
+                {
+                    NotifyFilter = NotifyFilters.FileName
+                };
 
-            fileWatcher.Created += FileWatcher_Created;
-            fileWatcher.EnableRaisingEvents = true;
+                fileWatcher.Created += FileWatcher_Created;
+                fileWatcher.EnableRaisingEvents = true;
 
-            Console.WriteLine($"Monitoring started on {inputFolder}...");
+                Console.WriteLine($"Monitoring started on {inputFolder}...");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error : {ex.Message}");
+            }
         }
 
         private void FileWatcher_Created(object sender, FileSystemEventArgs e)
